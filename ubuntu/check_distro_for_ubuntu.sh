@@ -7,15 +7,16 @@ check_distro_for_ubuntu() {
     echo "Started checking distribution for Ubuntu at $(date)"
 
     grep -i ubuntu /etc/*-release &>/dev/null
+
     if [[ $? == 0 ]]; then 
-        echo "Distribution is Ubuntu."
+        tput setaf 2; echo "Distribution is Ubuntu."; tput sgr0
         cat /etc/os-release
         echo ""
 
         echo "Finished checking distribution for Ubuntu at $(date)"
         echo ""
     else 
-        echo "Sorry but this script only runs on Ubunutu."
+        tput setaf 1; echo "Sorry but this script only runs on Ubunutu."; tput sgr0
         cat /etc/*-release
         echo ""
 

@@ -85,8 +85,7 @@ def addItemsToQueue():
         print("")
 
     except Exception: 
-        print(Fore.RED + "Failed to add items to queue.")
-        
+        print(Fore.RED + "Failed to add items to queue.")        
         traceback.print_exc()
         exit("" + Style.RESET_ALL)
 

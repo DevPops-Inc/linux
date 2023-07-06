@@ -13,7 +13,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -31,14 +31,12 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    
     print("")
-    return operatingSystem
 
 
 def displayHomeDir(): 
     print("\nDisplay directory directory.\n")
-    operatingSystem = checkOs()
+    checkOs()
 
     try: 
         startDateTime = datetime.now()
@@ -49,17 +47,15 @@ def displayHomeDir():
         print(Fore.GREEN + "Successfully displayed home directory." + Style.RESET_ALL)
 
         finishedDateTime = datetime.now()
-        
         print("Finished displaying home directory at", finishedDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         duration = finishedDateTime - startDateTime
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
     
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to display home directory.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

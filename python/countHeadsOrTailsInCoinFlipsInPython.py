@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -32,9 +32,7 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
-
     return operatingSystem
 
     
@@ -42,42 +40,36 @@ def getCoinFlips(operatingSystem):
     if operatingSystem == "Windows": 
         coinFlip = int(input("Please type the number of coin flips you would like and press \"Enter\" key (Example: 5): "))
 
-        print("")
-
     elif operatingSystem == "macOS" or operatingSystem == "Linux": 
         coinFlip = int(input("Please type the number of coin flips you would like and press \"return\" key (Example: 5): "))
 
-        print("")
-
+    print("")
     return coinFlip
 
 
 def checkParameters(coinFlip): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("------------------------------")
     print("coinFlip: {0}".format(coinFlip))
     print("------------------------------")
 
-    if coinFlip == None: 
+    if coinFlip == None or coinFlip == "": 
         print(Fore.RED + "coinFlip is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
     
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
         print("")
 
     else: 
         print(Fore.RED + "One or more parameters are incorrect." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
         exit("")
 
     
@@ -98,17 +90,16 @@ def countHeadsOrTailsInCoinFlips():
 
         print("Started counting heads and tails in coin flips at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
-        output={"Heads":0, "Tails":0}
-        coin=list(output.keys())
+        output = {"Heads":0, "Tails":0}
+        coin   = list(output.keys())
 
         for i in range(coinFlip):
             output[random.choice(coin)]+=1
 
-        print("The results of the coin flips are:")
-        print(Fore.BLUE)
+        print("The results of the coin flips are:" + Fore.BLUE)
         print("Heads:", output["Heads"])
         print("Tails:", output["Tails"])
-        print(Style.RESET_ALL)
+        print(Fore.GREEN + "Successfully counted heads and tails in coin flip." + Style.RESET_ALL)
 
         finishedDateTime = datetime.now()
 
@@ -118,10 +109,9 @@ def countHeadsOrTailsInCoinFlips():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
         
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to count heads and tails in coin flips.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

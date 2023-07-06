@@ -4,6 +4,8 @@
 
 # you can run this script with: python3 drawStarInPython.py < border color > < inside color >
 
+# haven't figured out how to get this to work on Python 3.9+
+
 import colorama, os, sys, traceback
 from colorama import Fore, Style
 from datetime import datetime
@@ -15,7 +17,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
     
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -41,13 +43,10 @@ def getBorderColor(operatingSystem):
     if operatingSystem == "Windows": 
         borderColor = str(input("Please type the border color of the star and press the \"Enter\" key (Example: orange): "))
 
-        print("")
-
     else: 
         borderColor = str(input("Please type the border color of the star and press the \"return\" key (Example: orange): "))
 
-        print("")
-
+    print("")
     return borderColor
 
 
@@ -55,19 +54,16 @@ def getInsideColor(operatingSystem):
     if operatingSystem == "Windows": 
         insideColor = str(input("Please type the inside color of the star and press the \"Enter\" key (Example: yellow): "))
 
-        print("")
-
     else: 
         insideColor = str(input("Please type the inside color of the star and press the \"return\" key (Example: yellow): "))
 
-        print("")
-
+    print("")
     return insideColor
 
 
 def checkParameters(borderColor, insideColor): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s): ")
     print("------------------------------------")
@@ -75,15 +71,15 @@ def checkParameters(borderColor, insideColor):
     print("insideColor: {0}".format(insideColor))
     print("------------------------------------")
 
-    if borderColor == None: 
+    if borderColor == None or borderColor == "": 
         print(Fore.RED + "borderColor is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if insideColor == None: 
+    if insideColor == None or insideColor == "": 
         print(Fore.RED + "insideColor is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -134,10 +130,9 @@ def drawStar():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to draw star.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

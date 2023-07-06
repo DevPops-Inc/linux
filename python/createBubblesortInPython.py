@@ -2,7 +2,7 @@
 
 # create bubblesort in Python
 
-import colorama, os, sys, traceback
+import colorama, os, sys, time, traceback
 from colorama import Fore, Style 
 from datetime import datetime
 colorama.init()
@@ -12,7 +12,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -41,6 +41,7 @@ def bubbleSort(dataset):
                 temp = dataset[j]
                 dataset[j] = dataset[j+1]
                 dataset[j+1] = temp
+        time.sleep(.25)
         print(dataset)
 
 
@@ -98,10 +99,9 @@ def createBubblesort():
             print("Total execution time: {0} second(s)".format(duration.seconds))
             print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to create bubblesort.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

@@ -16,7 +16,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System:", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -74,7 +74,7 @@ def getNewFolderName(operatingSystem):
 
 def checkParameters(pathToFolder, folderName, newFolderName): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("----------------------------------------")
@@ -83,19 +83,19 @@ def checkParameters(pathToFolder, folderName, newFolderName):
     print("newFolderName: {0}".format(newFolderName))
     print("----------------------------------------")
 
-    if pathToFolder == None: 
+    if pathToFolder == None or pathToFolder == "": 
         print(Fore.RED + "pathToFolder is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if folderName == None: 
+    if folderName == None or folderName == "": 
         print(Fore.RED + "folderName is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if newFolderName == None:
+    if newFolderName == None or newFolderName == "":
         print(Fore.RED + "newFolderName is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -129,8 +129,8 @@ def renameFolder():
         
         print("Started renaming \"{0}\" folder at {1}".format(folderName, startDateTime.strftime("%m-%d-%Y %I:%M %p")))
 
-        folderPath="{0}/{1}".format(pathToFolder, folderName)
-        newFolderNamePath="{0}/{1}".format(pathToFolder, newFolderName)
+        folderPath = "{0}/{1}".format(pathToFolder, folderName)
+        newFolderNamePath = "{0}/{1}".format(pathToFolder, newFolderName)
         os.rename(folderPath, newFolderNamePath)
 
         print(Fore.GREEN + "Successfully renamed \"{0}\" folder to \"{1}\" folder.".format(folderName, newFolderName) + Style.RESET_ALL)
@@ -145,8 +145,7 @@ def renameFolder():
 
     except Exception as e:
         print(Fore.RED + "Failed to rename \"{0}\" folder.".format(folderName))
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

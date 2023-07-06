@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -32,7 +32,6 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
     return operatingSystem
 
@@ -41,13 +40,10 @@ def getTotalSale(operatingSystem):
     if operatingSystem == "Windows": 
         totalSale = float(input("Please type the total sale amount and press \"Enter\" key (Example: 100): "))
 
-        print("")
-
     elif operatingSystem == "macOS" or operatingSystem == "Linux": 
         totalSale = float(input("Please type the total sale amount and press \"return\" key (Example: 100): "))
 
-        print("")
-
+    print("")
     return totalSale
 
 
@@ -55,20 +51,16 @@ def getProfitMargin(operatingSystem):
     if operatingSystem == "Windows": 
         profitMargin = float(input("Please type the profit margin and press \"Enter\" key (Example: 20): "))
 
-        print("")
-
     if operatingSystem == "macOS" or operatingSystem == "Linux": 
         profitMargin = float(input("Please type the profit margin and press \"Enter\" key (Example: 20): "))
 
-        print("")
-
+    print("")
     return profitMargin
 
         
 def checkParameters(totalSale, profitMargin): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("--------------------------------------")
@@ -76,26 +68,24 @@ def checkParameters(totalSale, profitMargin):
     print("profitMargin: {0}".format(profitMargin))
     print("--------------------------------------")
 
-    if totalSale == None: 
+    if totalSale == None or totalSale == "": 
         print(Fore.RED + "totalSale is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if profitMargin == None: 
+    if profitMargin == None or profitMargin == "": 
         print(Fore.RED + "profitMargin is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
         print("")
 
     else: 
         print(Fore.RED + "One or more parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
         exit("")
 
 
@@ -115,7 +105,6 @@ def calculateTotalProfit():
 
     try: 
         startDateTime = datetime.now()
-        
         print("Started calculating total profit at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
         
         totalProfit = totalSale * (profitMargin/100)
@@ -125,7 +114,6 @@ def calculateTotalProfit():
         print(Fore.GREEN + "Successfully calculated total profit." + Style.RESET_ALL)
 
         finishedDateTime = datetime.now()
-
         print("Finished calculated total profit at", finishedDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         duration = finishedDateTime - startDateTime
@@ -134,8 +122,7 @@ def calculateTotalProfit():
         
     except Exception as e:
         print(Fore.RED + "Failed to calculate total profit in Python.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

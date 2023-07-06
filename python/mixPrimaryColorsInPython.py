@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -46,34 +46,28 @@ def getColor1(operatingSystem):
 
 	if operatingSystem == "Windows": 
 		color1 = str(input("Please type the first color you want and press \"Enter\" key (Example: red): "))
-		
-		print("")
 	
 	elif operatingSystem == "macOS" or operatingSystem == "Linux":
 		color1 = str(input("Please type the first color you want and press \"return\" key (Example: red): "))
 		
-		print("")
-		
+	print("")	
 	return color1
 		
 	
 def getColor2(operatingSystem): 
 	if operatingSystem == "Windows": 
 		color2 = str(input("Please type the second color you want and press \"Enter\" key (Example: blue): "))
-		
-		print("")
 	
 	elif operatingSystem == "macOS" or operatingSystem == "Linux": 
 		color2 = str(input("Please type the second color you want and press \"return\" key (Example: blue): "))
 		
-		print("")
-		
+	print("")	
 	return color2
 
 	
 def checkParameters(color1, color2): 
 	print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-	valid = "true"
+	valid = True
 	
 	print("Parameter(s): ")
 	print("--------------------------")
@@ -81,15 +75,15 @@ def checkParameters(color1, color2):
 	print("color2: {0}".format(color2))
 	print("--------------------------")
 	
-	if color1 == None: 
+	if color1 == None or color1 == "": 
 		print(Fore.RED + "color1 is not set." + Style.RESET_ALL)
-		valid = "false"
+		valid = False
 		
-	if color2 == None: 
+	if color2 == None or color2 == "": 
 		print(Fore.RED + "color2 is not set." + Style.RESET_All)
-		valid = "false"
+		valid = False
 		
-	if valid == "true":
+	if valid == True:
 		print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 		
 		print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -116,9 +110,12 @@ def mixPrimaryColors():
 	
 	checkParameters(color1, color2)
 	
-	try: 
+	try:
 		startDateTime = datetime.now()
-		print("Started mixing colors at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
+		print("Started mixing colors at", startDateTime.strftime("%m-%d-%Y %I:%M %p")) 
+
+		if color1 == color2:
+			raise Exception("You didn't mix a new color!")
 		
 		purple = '\033[35m'
 		orange = '\033[33m'
@@ -135,10 +132,13 @@ def mixPrimaryColors():
 			print(Fore.GREEN + "You just made green!" + Style.RESET_ALL)
 			print("")
 
-		if color1 == color2:
-			print(Fore.RED + "Error: you didn't mix a new color!" + Style.RESET_ALL)
-			print("")
-		
+		primaryColors = [ "red", "blue", "yellow" ]
+
+		if color1 != primaryColors or color2 != primaryColors:
+			raise Exception("You didn't choose a primary color!")
+				
+		print(Fore.GREEN + "Successfully mixed colors." + Style.RESET_ALL)
+
 		finishedDateTime = datetime.now()
 		print("Finished mixing colors at", finishedDateTime.strftime("%m-%d-%Y %I:%M %p"))
 		
@@ -146,10 +146,9 @@ def mixPrimaryColors():
 		print("Total execution time: {0} second(s)".format(duration.seconds))
 		print("")
 	
-	except Exception as e: 
+	except Exception: 
 		print(Fore.RED + "Failed to mix colors.")
-		print(e)
-		print(traceback.print_stack)
+		traceback.print_exc()
 		exit("" + Style.RESET_ALL)
 		
 

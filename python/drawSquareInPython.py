@@ -60,7 +60,7 @@ def getFillColor(operatingSystem):
 
 def checkParameters(borderColor, fillColor): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s): ")
     print("------------------------------------")
@@ -70,13 +70,13 @@ def checkParameters(borderColor, fillColor):
 
     if borderColor == None: 
         print(Fore.RED + "borderColor is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
     if fillColor == None: 
         print(Fore.RED + "fillColor is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -125,10 +125,10 @@ def drawSquare():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to draw square.")
-        print(e)
-        print(traceback.print_stack)
+        
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

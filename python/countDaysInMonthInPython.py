@@ -14,7 +14,7 @@ def checkOS():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -39,12 +39,11 @@ def checkOS():
 def getYear(operatingSystem): 
     if operatingSystem == "Windows": 
         year = int(input("Please type the year and press the \"Enter\" key (Example: 2020): "))
-        print("")
 
     else: 
         year = int(input("Please type the year and press the \"return\" key (Example: 2020): "))
-        print("")
 
+    print("")
     return year
 
 
@@ -52,19 +51,16 @@ def getMonth(operatingSystem):
     if operatingSystem == "Windows": 
         month = int(input("Please type the number of the month and press the \"Enter\" key (Example for March: 3): "))
 
-        print("")
-
     else: 
         month = int(input("Please type the number of the month and press the \"Enter\" key (Example for March: 3): "))
 
-        print("")
-
+    print("")
     return month
 
 
 def checkParameters(year, month): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("------------------------")
@@ -72,15 +68,15 @@ def checkParameters(year, month):
     print("month: {0}".format(month))
     print("------------------------")
 
-    if year == None: 
+    if year == None or year == "": 
         print(Fore.RED + "year is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if month == None: 
+    if month == None or month == "": 
         print(Fore.RED + "month is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -124,7 +120,6 @@ def countDaysOfMonth():
                 print(days)
 
         print("days in {0} {1}.".format(calendar.month_name[month], year))
-
         print(Fore.GREEN + "Successfully counted days in a month," + Style.RESET_ALL)
 
         finishedDateTime = datetime.now()
@@ -134,10 +129,9 @@ def countDaysOfMonth():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to count days in a month.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

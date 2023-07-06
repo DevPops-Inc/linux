@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System:", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -61,7 +61,7 @@ def getFolderName(operatingSystem):
 
 def checkParameters(pathToFolder, folderName): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("--------------------------------------")
@@ -71,13 +71,13 @@ def checkParameters(pathToFolder, folderName):
 
     if pathToFolder == None: 
         print(Fore.RED + "pathToFolder is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
     if folderName == None: 
         print(Fore.RED + "folderName is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -124,8 +124,7 @@ def deleteFolder():
 
     except Exception as e:
         print(Fore.RED + "Failed to delete {0} folder.".format(folderName))
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

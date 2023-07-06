@@ -2,6 +2,8 @@
 
 # draw circle in Python
 
+# this doesn't work on Python 3.9+
+
 import colorama, os, sys, traceback, turtle
 from colorama import Fore, Style
 from datetime import datetime
@@ -12,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System:", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
 
@@ -49,10 +51,9 @@ def drawCircle():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to draw circle.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

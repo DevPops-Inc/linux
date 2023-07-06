@@ -12,7 +12,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -30,7 +30,6 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
     return operatingSystem
 
@@ -41,7 +40,6 @@ def checkArgcomplete():
 
     try:
         startDateTime = datetime.now()
-        
         print("Started checking argcomplete at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         FNULL = open(os.devnull, 'w')
@@ -75,7 +73,6 @@ def checkArgcomplete():
                 exit("")
 
         elif operatingSystem == "Windows": 
-            
             checkArgcompleteOnWindows = subprocess.call(['where', 'argcomplete'], stdout=FNULL)
 
             if checkArgcompleteOnWindows == 0:
@@ -102,10 +99,9 @@ def checkArgcomplete():
                 print("Total execution time: {0} second(s)".format(duration.seconds))
                 exit("")
                 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to check argcomplete in Python.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

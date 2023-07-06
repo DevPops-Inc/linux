@@ -12,7 +12,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -30,7 +30,6 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
     return operatingSystem
 
@@ -46,13 +45,10 @@ def getChoice(operatingSystem):
     if operatingSystem == "Windows":
         choice = str(input("Please type your choice and press \"Enter\" key (Example: 1): "))
 
-        print("")
-
     elif operatingSystem == "macOS" or operatingSystem == "Linux":
         choice = str(input("Please type your choice and press \"return\" key (Example: 1): "))
 
-        print("")
-
+    print("")
     return choice
 
 
@@ -60,19 +56,16 @@ def getNum1(operatingSystem):
     if operatingSystem == "Windows":
         num1 = int(input("Please type a number and press the \"Enter\" key (Example: 2): "))
 
-        print("")
-
     elif operatingSystem == "macOS" or operatingSystem == "Linux":
         num1 = int(input("Please type a number and press the \"return\" key (Example: 2): "))
 
-        print("")
-
+    print("")
     return num1
 
 
 def checkParameters(choice, num1):
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("--------------------------")
@@ -80,15 +73,15 @@ def checkParameters(choice, num1):
     print("num1  : {0}".format(num1))
     print("--------------------------")
 
-    if choice == None:
+    if choice == None or choice == "":
         print(Fore.RED + "choice is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if num1 == None:
+    if num1 == None or choice == "":
         print(Fore.RED + "num1 is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true":
+    if valid == True or choice == "":
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -165,8 +158,7 @@ def basicMath():
 
     except Exception as e:
         print(Fore.RED + "Failed to perform basic math in Python.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

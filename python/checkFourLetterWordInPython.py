@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System:", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -49,18 +49,18 @@ def getFourLetterWord(operatingSystem):
 
 def checkParameters(fourLetterWord): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("-----------------------------------------")
     print("fourLetteWord: {0}".format(fourLetterWord))
     print("-----------------------------------------")
 
-    if fourLetterWord == None: 
+    if fourLetterWord == None or fourLetterWord == "": 
         print(Fore.RED + "fourLetterWord is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -87,28 +87,30 @@ def checkFourLetterWord():
 
     try: 
         startDateTime = datetime.now()
+
         print("Started checking four letter word at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         wordLength = len(fourLetterWord)
 
         if wordLength == 4:
             print(Fore.BLUE + "\"{0}\" is a four letter word.".format(fourLetterWord.capitalize()) + Style.RESET_ALL)
+            
         else:
             print(Fore.RED + "\"{0}\" is not a four letter word.".format(fourLetterWord.capitalize()) + Style.RESET_ALL)
 
         print(Fore.GREEN + "Successfully checked four letter word." + Style.RESET_ALL)
 
         finishedDateTime = datetime.now()
+
         print("Finished checking four letter word at", finishedDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         duration = finishedDateTime - startDateTime
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to check four letter word.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

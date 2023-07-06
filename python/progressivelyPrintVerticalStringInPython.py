@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System:", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -40,30 +40,27 @@ def getVerticalString(operatingSystem):
     if operatingSystem == "Windows": 
         verticalString = str(input("Please type the string you would like to print vertically and press the \"Enter\" key (Example: Python is fun!): " ))  
 
-        print("")
-
     else: 
         verticalString = str(input("Please type the string you would like to print vertically and press the \"Enter\" key (Example: Python is fun!): " ))  
 
-        print("")
-
+    print("")
     return verticalString
 
 
 def checkParameters(verticalString): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("------------------------------------------")
     print("verticalString: {0}".format(verticalString))
     print("------------------------------------------")
 
-    if verticalString == None: 
+    if verticalString == None or verticalString == "": 
         print(Fore.RED + "Vertical string is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -107,10 +104,9 @@ def progressivelyPrintVerticalString():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to progressively print {0}".format(verticalString))
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
     
 

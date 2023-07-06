@@ -4,6 +4,8 @@
  
 # you can run this script: python3 cowsayMessageInPython.py '< message >'
 
+# haven't figured out to get script to work with strings containing single quotes
+
 import colorama, os, subprocess, sys, traceback
 from colorama import Fore, Style
 from datetime import datetime
@@ -14,7 +16,7 @@ def checkOs():
 	print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 	
 	if sys.platform == "win32": 
-		print(Fore.GREEN + "Operating System: ", end="")
+		print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
 		os.system('ver')
 		print(Style.RESET_ALL, end="")
 		operatingSystem = "Windows"
@@ -84,18 +86,18 @@ def getCowMessage(operatingSystem):
 	
 def checkParameters(cowMessage): 
 	print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-	valid = "true"
+	valid = True
 	
 	print("Parameter(s): ")
 	print("----------------------------------")
 	print("cowMessage: {0}".format(cowMessage))
 	print("----------------------------------")
 	
-	if cowMessage == None: 
+	if cowMessage == None or cowMessage == "": 
 		print(Fore.RED + "cowMessage is not set.")
-		valid = "false"
+		valid = False
 		
-	if valid == "true": 
+	if valid == True: 
 		print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 		
 		print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -137,10 +139,9 @@ def cowsayMessage():
 		print("Total execution time: {0} second(s)".format(duration.seconds))
 		print("")
 
-	except Exception as e: 
+	except Exception: 
 		print(Fore.RED + "Cow failed to say message.")
-		print(e)
-		print(traceback.print_stack)
+		traceback.print_exc()
 		exit("" + Style.RESET_ALL)
 
 

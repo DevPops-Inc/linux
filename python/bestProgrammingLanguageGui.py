@@ -13,7 +13,7 @@ def checkOs():
     print("Started checking operating system at ", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -31,7 +31,6 @@ def checkOs():
         operatingSystem = "Linux"
     
     print("Finished checking operating system at ", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
     return operatingSystem
 
@@ -41,14 +40,12 @@ def bestProgrammingLanguage():
     operatingSystem = checkOs()
 
     if operatingSystem == "Windows":
-        input("Press any key to continue or press \"Ctrl\" and \"C\" keys to quit.")
-        print("")
+        input("Press any key to continue or press the \"Ctrl\" and \"C\" keys to quit: ")
 
     elif operatingSystem == "macOS" or operatingSystem == "Linux": 
-        input("Press any key to continue or press \"control\" and \"C\" keys to quit.")
+        input("Press any key to continue or press the \"control\" and \"C\" keys to quit: ")
 
-        print("")
-
+    print("")
     root = Tk()
     v = IntVar()
     
@@ -80,9 +77,8 @@ def bestProgrammingLanguage():
         print("")
         
     except Exception as e:
-        print(Fore.RED + "Failed to run best programming language GUI.")
-        print(e)
-        print(traceback.print_stack)
+        print(Fore.RED + "Failed to run best programming language GUI.")        
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

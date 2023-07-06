@@ -49,18 +49,18 @@ def getInputString(operatingSystem):
 
 def checkParameters(inputString): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s):")
     print("------------------------------------")
     print("inputString: {0}".format(inputString))
     print("------------------------------------")
 
-    if inputString == None: 
+    if inputString == None or inputString == "": 
         print(Fore.RED + "inputString is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -100,10 +100,9 @@ def countCharacters():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
         
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to count characters in string.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

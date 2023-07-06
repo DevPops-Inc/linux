@@ -12,7 +12,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -30,7 +30,6 @@ def checkOs():
         operatingSystem = "Linux"
 
     print("Finished checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
     return operatingSystem
 
@@ -41,13 +40,11 @@ def checkAwsCli():
 
     try:
         startDateTime = datetime.now()
-        
         print("Started checking AWS CLI at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
         FNULL = open(os.devnull, 'w')
 
         if operatingSystem == "macOS" or operatingSystem == "Linux":
-
             checkAwsCliOnMacOrLinux = subprocess.call(['which', 'aws'], stdout=FNULL) 
 
             if checkAwsCliOnMacOrLinux == 0:
@@ -75,7 +72,6 @@ def checkAwsCli():
                 exit("")
 
         elif operatingSystem == "Windows": 
-            
             checkAwsCliOnWindows = subprocess.call(['where', 'aws'], stdout=FNULL)
 
             if checkAwsCliOnWindows == 0:
@@ -102,10 +98,9 @@ def checkAwsCli():
                 print("Total execution time: {0} second(s)".format(duration.seconds))
                 exit("")
                 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to check AWS CLI in Python.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

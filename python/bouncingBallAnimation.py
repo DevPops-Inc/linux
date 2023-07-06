@@ -13,27 +13,22 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
 
     if sys.platform == "win32": 
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
-        operatingSystem = "Windows"
 
     elif sys.platform == "darwin": 
         print(Fore.GREEN + "Operating System: ")
         os.system('sw_vers')
         print(Style.RESET_ALL, end="")
-        operatingSystem = "macOS"
 
     elif sys.platform == "linux": 
         print(Fore.GREEN + "Operating System: ")
         os.system('uname -r')
         print(Style.RESET_ALL, end="")
-        operatingSystem = "Linux"
 
     print("Finisehd checking operating system at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-
     print("")
-    return operatingSystem
 
 
 def bouncingBall():
@@ -78,8 +73,7 @@ def bouncingBall():
         
     except Exception as e:
         print(Fore.RED + "Failed to run bouncing ball animation.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

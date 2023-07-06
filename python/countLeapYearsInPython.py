@@ -14,7 +14,7 @@ def checkOs():
     print("Started checking operating system at", datetime.now().strftime("%Y-%d-%m %H:%M %p"))
 
     if sys.platform == "win32":
-        print(Fore.GREEN + "Operating System: ", end="")
+        print(Fore.GREEN + "Operating System:", end=""); sys.stdout.flush()
         os.system('ver')
         print(Style.RESET_ALL, end="")
         operatingSystem = "Windows"
@@ -39,12 +39,11 @@ def checkOs():
 def getFirstYear(operatingSystem): 
     if operatingSystem == "Windows": 
         firstYear = int(input("Please type the first year and press the \"Enter\" key (Example: 1981): "))
-        print("")
 
     else: 
         firstYear = int(input("Please type the first year and press the \"return\" key (Example: 1981): "))
-        print("")
-
+    
+    print("")
     return firstYear
 
 
@@ -52,19 +51,16 @@ def getSecondYear(operatingSystem):
     if operatingSystem == "Windows": 
         secondYear = int(input("Please type the second year and press the \"Enter\" key (Example: 2023): "))
 
-        print("")
-
     else: 
         secondYear = int(input("Please type the second year and press the \"return\" key (Example: 2023): "))
 
-        print("")
-
+    print("")
     return secondYear
 
 
 def checkParameters(firstYear, secondYear): 
     print("Started checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
-    valid = "true"
+    valid = True
 
     print("Parameter(s): ")
     print("----------------------------------")
@@ -72,15 +68,15 @@ def checkParameters(firstYear, secondYear):
     print("secondYear: {0}".format(secondYear))
     print("----------------------------------")
 
-    if firstYear == None: 
+    if firstYear == None or firstYear == "": 
         print(Fore.RED + "firsYear is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if secondYear == None: 
+    if secondYear == None or secondYear == "": 
         print(Fore.RED + "secondYear is not set." + Style.RESET_ALL)
-        valid = "false"
+        valid = False
 
-    if valid == "true": 
+    if valid == True: 
         print(Fore.GREEN + "All parameter check(s) passed." + Style.RESET_ALL)
 
         print("Finished checking parameter(s) at", datetime.now().strftime("%m-%d-%Y %I:%M %p"))
@@ -124,10 +120,9 @@ def leapYearCounter():
         print("Total execution time: {0} second(s)".format(duration.seconds))
         print("")
 
-    except Exception as e: 
+    except Exception: 
         print(Fore.RED + "Failed to count leap years.")
-        print(e)
-        print(traceback.print_stack)
+        traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
 

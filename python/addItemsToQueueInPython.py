@@ -37,9 +37,10 @@ def checkOs():
 
 def addItemsToQueue(): 
     print("\nAdd items to queue in Python.\n")
-    operatingSystem = checkOs()
 
     try: 
+        operatingSystem = checkOs()
+        
         startDateTime = datetime.now()
         print("Started adding items to queue at", startDateTime.strftime("%m-%d-%Y %I:%M %p"))
 
@@ -85,7 +86,7 @@ def addItemsToQueue():
         print("")
 
     except Exception: 
-        print(Fore.RED + "Failed to add items to queue.")        
+        print(Fore.RED + "Failed to add items to queue.")
         traceback.print_exc()
         exit("" + Style.RESET_ALL)
 
